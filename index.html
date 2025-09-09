@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Peter Quadri | Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0d4f3c 0%, #2d7d32 50%, #0d4f3c 100%);
+      color: #333;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(76, 175, 80, 0.1);
+      border-radius: 50%;
+      animation: float 15s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-100px) rotate(180deg); }
+    }
+
+    /* Header */
+    header {
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(76, 175, 80, 0.1) 50%, transparent 70%);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    header h1 { 
+      font-size: 4rem; 
+      margin: 0; 
+      font-weight: 800;
+      background: linear-gradient(135deg, #4caf50, #81c784, #4caf50);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.3)); }
+      to { filter: drop-shadow(0 0 30px rgba(129, 199, 132, 0.5)); }
+    }
+
+    header p { 
+      font-size: 1.4rem; 
+      margin: 20px 0 0; 
+      opacity: 0.9;
+      animation: slideUp 1s ease-out 0.5s both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 0.9; transform: translateY(0); }
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(34, 34, 34, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 25px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 30px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: -1;
+      border-radius: 30px;
+    }
+
+    nav a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(76, 175, 80, 0.3);
+      border-color: rgba(76, 175, 80, 0.5);
+      color: #fff;
+    }
+
+    nav a:hover::before {
+      left: 0;
+    }
+
+    nav a:active {
+      transform: translateY(-1px);
+      transition: all 0.1s ease;
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      border-radius: 2px;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 30px 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(135deg, #4caf50, #81c784, #4caf50);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 { 
+      margin-top: 0; 
+      color: #333;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .card p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .card ul {
+      margin-left: 20px;
+    }
+
+    .card li {
+      margin-bottom: 10px;
+      color: #555;
+      font-size: 1.1rem;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .projects-grid .card {
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .projects-grid .card:hover {
+      transform: translateY(-15px) scale(1.02);
+    }
+
+    .projects-grid .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Buttons */
+    a.button {
+      display: inline-block;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin-top: 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    a.button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2e7d32, #388e3c);
+      transition: left 0.3s ease;
+    }
+
+    a.button:hover::before {
+      left: 0;
+    }
+
+    a.button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    a.button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
+    }
+
+    /* Contact Section */
+    #contact .card {
+      text-align: center;
+    }
+
+    #contact a {
+      color: #4caf50;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    #contact a:hover {
+      color: #81c784;
+      text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #4caf50, #81c784, #4caf50);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.5rem; }
+      header p { font-size: 1.2rem; }
+      section h2 { font-size: 2.2rem; }
+      nav a { margin: 0 10px; font-size: 0.9rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      section { padding: 60px 15px; }
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <div class="particle" style="width: 20px; height: 20px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="width: 15px; height: 15px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+    <div class="particle" style="width: 25px; height: 25px; top: 80%; left: 20%; animation-delay: 4s;"></div>
+    <div class="particle" style="width: 18px; height: 18px; top: 40%; left: 70%; animation-delay: 1s;"></div>
+    <div class="particle" style="width: 12px; height: 12px; top: 70%; left: 50%; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <header>
+    <h1>Peter Quadri</h1>
+    <p>Computer Engineering Graduate | Robotics & AI Enthusiast</p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="card fade-in">
+      <p>
+        I am a Computer Engineering graduate with a strong interest in 
+        <b>Robotics, Artificial Intelligence, and Embedded Systems</b>. 
+        My journey has been shaped by hands-on projects, academic learning, 
+        and a six-month internship at <b>Robotics and Artificial Intelligence Nigeria (RAIN)</b>.
+      </p>
+      <p>
+        I enjoy building practical solutions — from robot cars and BLE beacon systems 
+        to computer vision prototypes and microcontroller-based devices. 
+        My goal is to pursue a Master's degree in Robotics or AI and contribute to 
+        innovative research and real-world applications.
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="card fade-in">
+      <h3>Internship at RAIN (Robotics and AI Nigeria)</h3>
+      <p><i>Jan – Jun 2024</i></p>
+      <ul>
+        <li>Worked on control systems, computer vision, NLP, and digital twinning.</li>
+        <li>Built a robotic arm prototype with aluminum and PLA material selection.</li>
+        <li>Developed an RFID + BLE beacon system for smart identification.</li>
+        <li>Gained hands-on skills with Raspberry Pi, ROS, and machine learning tools.</li>
+      </ul>
+    </div>
+
+    <div class="card fade-in">
+      <h3>Academic Projects</h3>
+      <ul>
+        <li>Robot car with obstacle avoidance, gyroscope-based turning, and speed control.</li>
+        <li>IoT-based Arduino projects (RFID lock, motion alarm, room thermometer).</li>
+        <li>8085 microprocessor interfacing with EPROM, RWM, and ADC.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="card fade-in">
+        <h3>🔗 School Pick-up System (SPS)</h3>
+        <p>BLE beacon + RFID system for secure student pick-up authentication with real-time monitoring capabilities.</p>
+      </div>
+      <div class="card fade-in">
+        <h3>🤖 Autonomous Robot Car</h3>
+        <p>Intelligent robot capable of carrying up to 10kg, featuring advanced obstacle avoidance and precision motor control.</p>
+      </div>
+      <div class="card fade-in">
+        <h3>🦾 Robotic Arm</h3>
+        <p>Precision-engineered robotic arm designed in Fusion 360, combining aluminum structure with PLA joints for optimal performance.</p>
+      </div>
+      <div class="card fade-in">
+        <h3>📡 IoT Projects</h3>
+        <p>Comprehensive Arduino ecosystem including smart RFID locks, intelligent alarm systems, and environmental monitoring solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card fade-in">
+      <p>📧 Email: <a href="mailto:peterquadri19@gmail.com">peterquadri19@gmail.com</a></p>
+      <p>💻 GitHub: <a href="https://github.com/PeterQuadri" target="_blank">github.com/PeterQuadri</a></p>
+      <p>💼 LinkedIn: <a href="http://linkedin.com/in/peter-quadri-68a3a7208" target="_blank">inkedin.com/in/peter-quadri</a></p>
+      <a class="button" href="#about"><span>Back to Top</span></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Peter Quadri. Crafted with passion for innovation.</p>
+  </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    });
+
+    // Add fade-in animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationDelay = '0.2s';
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // Add dynamic particles
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.width = Math.random() * 20 + 10 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      document.querySelector('.bg-animation').appendChild(particle);
+
+      setTimeout(() => particle.remove(), 15000);
+    }
+
+    // Create new particles periodically
+    setInterval(createParticle, 3000);
+  </script>
+
+</body>
+</html>
